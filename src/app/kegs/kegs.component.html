@@ -1,0 +1,33 @@
+
+<h2 (click)="clickAway()">Keg List</h2>
+<div class="heroes">
+  <li *ngFor="let keg of kegs" [class.selected]="keg === selectedKeg">
+
+
+
+    <span (click)="onSelect(keg)" class="badge">{{keg.name}}
+    </span><button (click)="sell(keg, 16)" #{{keg.name}}p>Pint</button><button (click)="sell(keg,32)" #{{keg.name}}>Growler</button><button (click)="sell(keg,64)" #{{keg.name}}l>Large Growler</button>
+  </li>
+<div *ngIf="selectedKeg">
+  <br>
+  <ul>
+  <div><li>name: {{selectedKeg.name}}</li></div>
+  <div><li>amount: {{selectedKeg.amount}}</li></div>
+  <div><li>price: {{selectedKeg.price}}</li></div>
+  <div><li>abv: {{selectedKeg.abv}}</li></div>
+  <div><li>ibu: {{selectedKeg.ibu}}</li></div>
+</ul>
+</div>
+
+
+</div>
+<button (click)="addAKeg()">Add a keg</button>
+<div *ngIf="addKeg===true">
+  <label>name:
+    <input #newName [ngModel] placeholder="name">
+    <input #newPrice [ngModel] placeholder="price">
+    <input #newAbv [ngModel] placeholder="abv">
+    <input #newIbu [ngModel] placeholder="ibu">
+  </label>
+  <button (click) = "AddKegToKegs(newName.value, newPrice.value, newAbv.value, newIbu.value)">Add!</button>
+</div>
