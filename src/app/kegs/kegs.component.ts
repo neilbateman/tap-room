@@ -14,10 +14,18 @@ export class KegsComponent implements OnInit {
   filterVal = 0;
   filterBy = "";
   filter = false;
-  today: number = Date.now();
+  today: number = new Date();
   selectedKeg: Keg;
 
   constructor(private datePipe: DatePipe) { }
+
+  happyHour() {
+  //let today = new Date();
+  let todayHours = new Date().getHours();
+    if(todayHours > 5 && todayHours < 23) {
+      this.selectedKeg.price -=1;
+    }
+  }
 
 
   getDate(date) {
@@ -29,6 +37,8 @@ export class KegsComponent implements OnInit {
   }
   onSelect(keg: Keg): void {
     this.selectedKeg = keg;
+    this.happyHour();
+    this.today = new Date();
   }
 
   clickAway(): void {
