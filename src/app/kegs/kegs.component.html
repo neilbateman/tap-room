@@ -1,13 +1,16 @@
 
 <h2 (click)="clickAway()">Keg List</h2>
+<h2>Today is {{today | date}}<br> {{today | date:'shortTime'}}</h2>
 <div class="heroes">
-  <li *ngFor="let keg of kegs" [class.selected]="keg === selectedKeg">
+  <div *ngFor="let keg of kegs" [class.selected]="keg === selectedKeg">
 
-
-
-    <span (click)="onSelect(keg)" class="badge">{{keg.name}}
+    <span *ngIf="filter===false || keg[filterBy] < filterVal">
+      <li>
+    <span (click)="onSelect(keg)" class="badge">{{keg['name']}}
     </span><button (click)="sell(keg, 16)" #{{keg.name}}p>Pint</button><button (click)="sell(keg,32)" #{{keg.name}}>Growler</button><button (click)="sell(keg,64)" #{{keg.name}}l>Large Growler</button>
   </li>
+  </span>
+</div>
 <div *ngIf="selectedKeg">
   <br>
   <ul>
@@ -31,3 +34,5 @@
   </label>
   <button (click) = "AddKegToKegs(newName.value, newPrice.value, newAbv.value, newIbu.value)">Add!</button>
 </div>
+<button (click) = "filterKeg(2, 'price')">Low Price kegs</button>
+<button (click) = "filterKeg(2, 'abv')">Low ABV beer</button>

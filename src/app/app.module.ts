@@ -14,7 +14,7 @@ import { KegsComponent } from './kegs/kegs.component';
     BrowserModule,
     FormsModule
   ],
-  providers: [],
+  // providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
