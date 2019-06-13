@@ -10,7 +10,7 @@ import { DatePipe } from '@angular/common';
 })
 export class KegsComponent implements OnInit {
   kegs =  KEGS;
-  addKeg = false;
+  edit = false;
   filterVal = 0;
   filterBy = "";
   filter = false;
@@ -27,6 +27,17 @@ export class KegsComponent implements OnInit {
     }
   }
 
+  kegSale(keg: Keg): void {
+    if(this.selectedKeg){
+    return this.selectedKeg.price -=1;
+  }
+}
+  allKegSale(): void {
+    let comp = this;
+    Object.keys(this.kegs).forEach(function(key){
+      comp.kegs[key].price -=1;
+    })
+  }
 
   getDate(date) {
     return this.datePipe.transform(date, 'yyyy-MM-dd');
@@ -57,7 +68,14 @@ export class KegsComponent implements OnInit {
     this.filterBy = type;
     this.filterVal = input;
   }
+  editKeg(): void {
+    this.edit = true;
+  }
+  editSelectedKegs(name: string, price: number, abv: number, ibu: number) : void {
+    this.selectedKeg.push({id: 1, name: name, amount: 100, price: price, abv: abv, ibu: ibu});
+    this.edit = false;
 
+  }
   sell(keg: Keg, size: number):void{
     let temp = this.selectedKeg;
     this.onSelect(keg);

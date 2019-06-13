@@ -7,10 +7,18 @@
     <span *ngIf="filter===false || keg[filterBy] < filterVal">
       <li>
     <span (click)="onSelect(keg)" class="badge">{{keg['name']}}
-    </span><button (click)="sell(keg, 16)" #{{keg.name}}p>Pint</button><button (click)="sell(keg,32)" #{{keg.name}}>Growler</button><button (click)="sell(keg,64)" #{{keg.name}}l>Large Growler</button>
+    </span>
+    <button (click)="sell(keg, 16)" #{{keg.name}}>Pint</button>
+    <button (click)="sell(keg,32)" #{{keg.name}}>Growler</button>
+    <button (click)="sell(keg,64)" >Large Growler</button>
+    <button (click)="editKeg()">Edit</button>
   </li>
   </span>
 </div>
+
+
+
+
 <div *ngIf="selectedKeg">
   <br>
   <ul>
@@ -21,9 +29,27 @@
   <div><li>ibu: {{selectedKeg.ibu}}</li></div>
 </ul>
 </div>
-
-
+<!-- <div *ngIf="edit===true">
+  <label>name:
+    <input #name [(ngModel)] placeholder="name">
+    <input #price [(ngModel)] placeholder="price">
+    <input #abv [(ngModel)] placeholder="abv">
+    <input #ibu [(ngModel)] placeholder="ibu">
+  </label>
+  <button (click) = "editSelectedKegs(name.value, price.value, abv.value, ibu.value)"#{{keg.name}}>Edit!</button>
+</div> -->
+<div *ngIf="edit===true">
+  <form>
+  <label>name:
+    <input [(ngModel)] ="selectedkeg.name" placeholder="name">
+    <input [(ngModel)] ="selectedkeg.price" placeholder="price">
+    <input [(ngModel)] ="selectedkeg.abv" placeholder="abv">
+    <input [(ngModel)] ="selectedkeg.ibu" placeholder="ibu">
+  </label>
+  <button (click) = "editSelectedKegs(name.value, price.value, abv.value, ibu.value)">Edit!</button>
+</form>
 </div>
+
 <button (click)="addAKeg()">Add a keg</button>
 <div *ngIf="addKeg===true">
   <label>name:
@@ -36,3 +62,7 @@
 </div>
 <button (click) = "filterKeg(2, 'price')">Low Price kegs</button>
 <button (click) = "filterKeg(2, 'abv')">Low ABV beer</button>
+<button (click) = "kegSale(keg)">Put a beer on sale</button>
+<button (click) = "allKegSale(keg)">Put all beers on sale</button>
+
+</div>
